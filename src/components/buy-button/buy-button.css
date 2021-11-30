@@ -1,0 +1,10 @@
+.buy__btn {
+  background: url("../buy-button/button.png");
+  width: 64px;
+  height: 64px;
+  border: 0;
+}
+
+.buy__btn .active {
+  background: url("../buy-button/button_active.png");
+}
