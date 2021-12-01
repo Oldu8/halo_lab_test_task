@@ -3,6 +3,7 @@ import GetData from "../../get-data";
 import "./app.css";
 import Header from "../header";
 import ItemList from "../item-list";
+import ModalBuyWindow from "../modal-buy-window";
 
 export default class App extends Component {
   state = {
@@ -48,6 +49,8 @@ export default class App extends Component {
         price: 0.4,
       },
     ],
+    modalBuyWindow: false,
+    itemForModal: {},
   };
 
   constructor() {
@@ -62,12 +65,38 @@ export default class App extends Component {
   //   });
   // }
 
+  closeModalBuyWindow = () => {
+    this.setState({
+      modalBuyWindow: false,
+    });
+  };
+
   render() {
-    const { products } = this.state;
+    const { products, modalBuyWindow, itemForModal } = this.state;
+    // const createModalBuyWindow = this.createModalBuyWindow;
+    const closeModalBuyWindow = this.closeModalBuyWindow;
+
+    const createModalBuyWindow = (id) => {
+      const chosenItem = products[id - 1];
+      console.log(chosenItem);
+      this.setState({
+        modalBuyWindow: true,
+        itemForModal: chosenItem,
+      });
+    };
+
     return (
       <section>
         <Header />
-        <ItemList products={products} />
+        <ItemList
+          products={products}
+          createModalBuyWindow={(id) => createModalBuyWindow(id)}
+        />
+        <ModalBuyWindow
+          isActive={modalBuyWindow}
+          chosenItem={itemForModal}
+          closeModal={closeModalBuyWindow}
+        />
       </section>
     );
   }

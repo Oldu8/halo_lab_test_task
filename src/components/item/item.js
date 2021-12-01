@@ -2,7 +2,7 @@ import React from "react";
 import "./item.css";
 import BuyButton from "../buy-button";
 
-const Item = ({ name, category, price }) => {
+const Item = ({ name, category, price, id, createBuyWindow }) => {
   return (
     <div className="product__item">
       <div className="product__nameBlock">
@@ -11,7 +11,7 @@ const Item = ({ name, category, price }) => {
       </div>
       <div className="product__priceBlock">
         <h4 className="price__product">{price}</h4>
-        <BuyButton />
+        <BuyButton id={id} createBuyWindow={createBuyWindow} />
       </div>
     </div>
   );
