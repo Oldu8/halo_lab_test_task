@@ -4,9 +4,9 @@ import "./header.css";
 
 const Header = () => {
   return (
-    <div className="header">
+    <header className="header">
       <h1 className="headline__header">Welcome to grocery shop</h1>
-    </div>
+    </header>
   );
 };
 export default Header;

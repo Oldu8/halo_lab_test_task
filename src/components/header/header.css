@@ -1,6 +1,8 @@
 .header {
   background-color: #7bd3d1;
   height: 80px;
+  width: 100%;
+  margin-bottom: 50px;
 }
 
 .headline__header {

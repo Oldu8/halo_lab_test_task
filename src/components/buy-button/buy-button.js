@@ -9,7 +9,7 @@ const BuyButton = ({ id, createBuyWindow }) => {
   return (
     <input
       type="submit"
-      value=" "
+      value="BUY"
       className="buy__btn btn"
       onClick={buyButtonClicked}
     ></input>

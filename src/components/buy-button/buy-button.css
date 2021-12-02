@@ -1,10 +1,17 @@
 .buy__btn {
-  background: url("../buy-button/button.png");
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  color: #4bcfa0;
   width: 64px;
   height: 64px;
-  border: 0;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
 
-.buy__btn .active {
-  background: url("../buy-button/button_active.png");
+.buy__btn:hover {
+  background-color: #4bcfa0;
+  border: 0;
+  color: #ffffff;
 }
