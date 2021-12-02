@@ -1,0 +1,26 @@
+.cheapest__btn {
+  color: #ffffff;
+  background: #50daa8;
+  border-radius: 16px;
+  border: 0;
+  width: 235px;
+  height: 60px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.02em;
+  padding: 16px 48px;
+}
+
+.cheapest__wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 70px 0;
+}
+
+.buy__btn:hover {
+  background-color: #4bcfa0;
+  border: 0;
+  color: #ffffff;
+}

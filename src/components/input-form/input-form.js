@@ -38,8 +38,10 @@ const checkValid = {
   },
 };
 
-const InputForm = () => {
+const InputForm = (props) => {
   const [isActiveTYPage, setTYActive] = useState(false);
+  const { chosenItem, closeModalWindow } = props;
+  const { name, category, price } = { ...chosenItem };
 
   /// state for validate form
 
@@ -62,7 +64,6 @@ const InputForm = () => {
     const isValid = checkValid[name](value);
 
     if (!isEmpty) {
-      console.log("is empty");
       setError((arr) => {
         return [...arr, `${name}Empty`];
       });
@@ -78,6 +79,11 @@ const InputForm = () => {
       setError([]);
       setFormData(intialFormData);
       setTYActive(true);
+      console.log(
+        `You bought ${name} from ${category} 
+        by ${price}. Ty ${formData.userName} we will call you by your number: ${formData.userPhone}`
+      );
+      closeModalWindow();
     }
     event.preventDefault();
   };
@@ -87,14 +93,6 @@ const InputForm = () => {
     <section>
       <div className="user__block">
         <form className="input__form" onSubmit={onSubmit}>
-          {(error.includes("userName") && (
-            <div className="error__input">{errorMessage["userName"]}</div>
-          )) ||
-            (error.includes("userNameEmpty") && (
-              <div className="error__input">
-                {errorMessage["userNameEmpty"]}
-              </div>
-            ))}
           <input
             onChange={handleChange}
             value={formData.userName}
@@ -104,12 +102,14 @@ const InputForm = () => {
             placeholder="Name"
             name="userName"
           ></input>
-          {(error.includes("userPhone") && (
-            <div className="error__input">{errorMessage["userPhone"]}</div>
+          {(error.includes("userName") && (
+            <div className="error__input name__error">
+              {errorMessage["userName"]}
+            </div>
           )) ||
-            (error.includes("userPhoneEmpty") && (
-              <div className="error__input">
-                {errorMessage["userPhoneEmpty"]}
+            (error.includes("userNameEmpty") && (
+              <div className="error__input name__error">
+                {errorMessage["userNameEmpty"]}
               </div>
             ))}
           <input
@@ -121,6 +121,16 @@ const InputForm = () => {
             placeholder="Number"
             name="userPhone"
           ></input>
+          {(error.includes("userPhone") && (
+            <div className="error__input number__error">
+              {errorMessage["userPhone"]}
+            </div>
+          )) ||
+            (error.includes("userPhoneEmpty") && (
+              <div className="error__input number__error">
+                {errorMessage["userPhoneEmpty"]}
+              </div>
+            ))}
           <button type="submit" className="order__btn">
             Order
           </button>

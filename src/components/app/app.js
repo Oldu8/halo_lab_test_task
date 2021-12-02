@@ -4,6 +4,8 @@ import "./app.css";
 import Header from "../header";
 import ItemList from "../item-list";
 import ModalBuyWindow from "../modal-buy-window";
+import BuyCheapest from "../buy-cheapest/buy-cheapest";
+import Footer from "../footer";
 
 export default class App extends Component {
   state = {
@@ -78,7 +80,6 @@ export default class App extends Component {
 
     const createModalBuyWindow = (id) => {
       const chosenItem = products[id - 1];
-      console.log(chosenItem);
       this.setState({
         modalBuyWindow: true,
         itemForModal: chosenItem,
@@ -97,6 +98,8 @@ export default class App extends Component {
           chosenItem={itemForModal}
           closeModal={closeModalBuyWindow}
         />
+        <BuyCheapest />
+        <Footer products={products} />
       </section>
     );
   }
