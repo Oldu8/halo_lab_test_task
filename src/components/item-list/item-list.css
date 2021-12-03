@@ -22,5 +22,6 @@
 @media (max-width: 768px) {
   .catalog {
     width: 100%;
+    justify-content: center;
   }
 }

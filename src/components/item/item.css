@@ -110,38 +110,38 @@ h4 {
 
 @media (max-width: 768px) {
   .product__item {
-    width: 170px;
-    height: 100px;
+    width: 200px;
+    height: 120px;
     padding: 2px;
   }
   .headline__product {
-    margin: 2px 0;
+    margin: 5px 0;
   }
   .category__product {
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 15px;
+    line-height: 20px;
   }
   .product__nameBlock {
-    margin-bottom: 3px;
+    margin-bottom: 5px;
   }
 
   .headline__product {
-    font-size: 18px;
-    line-height: 20px;
-  }
-
-  .product__priceBlock {
-    margin-top: 3px;
-  }
-
-  .price__product {
     font-size: 20px;
     line-height: 22px;
   }
 
+  .product__priceBlock {
+    margin-top: 5px;
+  }
+
+  .price__product {
+    font-size: 23px;
+    line-height: 25px;
+  }
+
   .price__product::before {
-    font-size: 17px;
-    line-height: 23px;
+    font-size: 18px;
+    line-height: 25px;
     top: 5%;
     left: -10px;
   }
