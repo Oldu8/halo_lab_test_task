@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./modal-buy-window.css";
 import InputForm from "../input-form";
+import OrderButton from "../order-button";
 
 const ModalBuyWindow = (props) => {
   const { isActive, chosenItem, closeModal } = props;

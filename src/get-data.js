@@ -14,15 +14,3 @@ export default class GetData {
     return result;
   }
 }
-
-// const getData = async () => {
-//   const res = await fetch(
-//     "https://run.mocky.io/v3/b7d36eea-0b3f-414a-ba44-711b5f5e528e"
-//   );
-//   if (!res.ok) {
-//     throw new Error("Could not fetch");
-//   }
-//   return await res.json();
-// };
-
-// export default getData;

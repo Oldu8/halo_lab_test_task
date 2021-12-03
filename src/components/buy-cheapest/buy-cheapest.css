@@ -17,10 +17,60 @@
   display: flex;
   justify-content: center;
   margin: 70px 0;
+  flex-direction: column;
+  align-items: center;
 }
 
 .buy__btn:hover {
   background-color: #4bcfa0;
   border: 0;
   color: #ffffff;
+}
+
+.cheapest__modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.cheapest__modal .product__item {
+  box-shadow: 24px 24px 40px rgba(75, 207, 160, 0.08);
+  margin: 2px 0px;
+}
+
+.cheapest__modal .order__btn {
+  margin: 0;
+  position: relative;
+  order: 1;
+}
+
+.cheapest__modal .order__btn::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-image: url(./arrow-right.svg);
+  background-position: center;
+  right: 30%;
+  bottom: 33%;
+}
+
+.cheapest__modal .inputs {
+  margin: 10px 0;
+}
+
+.cheapest__modal .input__form {
+  margin: 0;
+}
+
+.cheapest__modal .user__block {
+  background-color: #f2f2f2;
+  align-items: flex-start;
+}
+.cheapest__modal .name__user {
+  order: 2;
+  margin-top: 0;
+}
+
+.cheapest__modal .phone__user {
+  order: 3;
 }

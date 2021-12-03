@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./input-form.css";
 import TYPage from "../modal-ty-window";
+import OrderButton from "../order-button/";
 
 const intialFormData = {
   userName: "",
@@ -14,27 +15,14 @@ const errorMessage = {
   userPhone: "Should contain 12 characters",
 };
 
-const checkEmpty = {
-  userName: (value) => {
-    if (!value.length) {
-      return false;
-    } else if (value.length) return true;
-  },
-  userPhone: (value) => {
-    if (!value.length) {
-      return false;
-    } else if (value.length) return true;
-  },
-};
-
 const checkValid = {
   userName: (value) => {
     const regex = /[A-Za-z]+$/;
-    return !!(value.length > 2 && value.length < 11) && regex.test(value);
+    return !!(value.length >= 2 && value.length < 11) && regex.test(value);
   },
   userPhone: (value) => {
     const regex = /^[0-9]+$/;
-    return !!(value.length === 12) && regex.test(value);
+    return value.length === 12 && regex.test(value);
   },
 };
 
@@ -46,21 +34,22 @@ const InputForm = (props) => {
   /// state for validate form
 
   const [formData, setFormData] = useState(intialFormData);
-  const [error, setError] = useState([]);
+  const [errors, setError] = useState([]);
 
   const handleChange = (event) => {
-    setError([]);
+    const { name, value } = event.target;
+    removeChosenError(name);
     setFormData((state) => {
       return {
         ...state,
-        [event.target.name]: event.target.value,
+        [name]: value,
       };
     });
   };
 
   const handleBlur = (event) => {
     const { name, value } = event.target;
-    const isEmpty = checkEmpty[name](value);
+    const isEmpty = !!value.length;
     const isValid = checkValid[name](value);
 
     if (!isEmpty) {
@@ -75,7 +64,18 @@ const InputForm = (props) => {
   };
 
   const onSubmit = (event) => {
-    if (formData.userName && formData.userPhone && !error.length) {
+    event.preventDefault();
+    if (!formData.userName) {
+      return setError((ers) => {
+        return [...ers, "userNameEmpty"];
+      });
+    }
+    if (!formData.userPhone) {
+      return setError((ers) => {
+        return [...ers, "userPhoneEmpty"];
+      });
+    }
+    if (!errors.length) {
       setError([]);
       setFormData(intialFormData);
       setTYActive(true);
@@ -85,8 +85,22 @@ const InputForm = (props) => {
       );
       closeModalWindow();
     }
-    event.preventDefault();
   };
+
+  const removeChosenError = (errorName) => {
+    setError((ers) => {
+      return ers
+        .filter((el) => el !== errorName)
+        .filter((el) => el !== `${errorName}Empty`);
+      // не знаю, почему не сработал фильтр, который был .filter((el) => el !== errorName ||  el !== `${errorName}Empty`) поэтому разбил на 2
+    });
+  };
+
+  const onFocus = (event) => {
+    const { name } = event.target;
+    removeChosenError(name);
+  };
+
   /// main return
 
   return (
@@ -101,13 +115,14 @@ const InputForm = (props) => {
             className="name__user inputs"
             placeholder="Name"
             name="userName"
+            onFocus={onFocus}
           ></input>
-          {(error.includes("userName") && (
+          {(errors.includes("userName") && (
             <div className="error__input name__error">
               {errorMessage["userName"]}
             </div>
           )) ||
-            (error.includes("userNameEmpty") && (
+            (errors.includes("userNameEmpty") && (
               <div className="error__input name__error">
                 {errorMessage["userNameEmpty"]}
               </div>
@@ -120,20 +135,19 @@ const InputForm = (props) => {
             className="phone__user inputs"
             placeholder="Number"
             name="userPhone"
+            onFocus={onFocus}
           ></input>
-          {(error.includes("userPhone") && (
+          {(errors.includes("userPhone") && (
             <div className="error__input number__error">
               {errorMessage["userPhone"]}
             </div>
           )) ||
-            (error.includes("userPhoneEmpty") && (
+            (errors.includes("userPhoneEmpty") && (
               <div className="error__input number__error">
                 {errorMessage["userPhoneEmpty"]}
               </div>
             ))}
-          <button type="submit" className="order__btn">
-            Order
-          </button>
+          <OrderButton />
         </form>
       </div>
       <TYPage isActive={isActiveTYPage} setActive={setTYActive} />

@@ -4,68 +4,22 @@ import "./app.css";
 import Header from "../header";
 import ItemList from "../item-list";
 import ModalBuyWindow from "../modal-buy-window";
-import BuyCheapest from "../buy-cheapest/buy-cheapest";
+import BuyCheapest from "../buy-cheapest";
 import Footer from "../footer";
 
 export default class App extends Component {
   state = {
-    products: [
-      {
-        name: "Orange Juice",
-        category: "Drinks",
-        price: 14.99,
-      },
-      {
-        name: "Apples",
-        category: "fruits",
-        price: 4.99,
-      },
-      {
-        name: "Tomatos",
-        category: "vegetables",
-        price: 6.39,
-      },
-      {
-        name: "Coffee",
-        category: "Drinks",
-        price: 3.15,
-      },
-      {
-        name: "Sweet Paper",
-        category: "Vegetables",
-        price: 12.15,
-      },
-      {
-        name: "Grapes",
-        category: "FRUITS",
-        price: 20.49,
-      },
-      {
-        name: "Pears",
-        category: "Fruits",
-        price: 1.35,
-      },
-      {
-        name: "Team",
-        category: "Drinks",
-        price: 0.4,
-      },
-    ],
+    products: [],
     modalBuyWindow: false,
     itemForModal: {},
   };
 
-  constructor() {
-    super();
-    // this.updateData();
+  getData = new GetData();
+  componentDidMount() {
+    this.getData.getAllProducts().then((data) => {
+      this.setState({ products: data });
+    });
   }
-
-  // getData = new GetData();
-  // updateData() {
-  //   this.getData.getAllProducts().then((data) => {
-  //     this.setState({ products: data });
-  //   });
-  // }
 
   closeModalBuyWindow = () => {
     this.setState({
@@ -75,11 +29,10 @@ export default class App extends Component {
 
   render() {
     const { products, modalBuyWindow, itemForModal } = this.state;
-    // const createModalBuyWindow = this.createModalBuyWindow;
     const closeModalBuyWindow = this.closeModalBuyWindow;
 
     const createModalBuyWindow = (id) => {
-      const chosenItem = products[id - 1];
+      const chosenItem = products.find((item) => item.name === id);
       this.setState({
         modalBuyWindow: true,
         itemForModal: chosenItem,
@@ -98,8 +51,8 @@ export default class App extends Component {
           chosenItem={itemForModal}
           closeModal={closeModalBuyWindow}
         />
-        <BuyCheapest />
-        <Footer products={products} />
+        <BuyCheapest products={products} />
+        <Footer />
       </section>
     );
   }
