@@ -11,4 +11,19 @@
   border-radius: 16px;
   width: 288px;
   height: 56px;
+  position: relative;
+}
+
+.order__btn > span {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  display: none;
+  top: 31%;
+  right: 30%;
+  background-image: url(./img/arrow-right.svg);
+}
+
+.order__btn:hover > span {
+  display: block;
 }

@@ -5,5 +5,22 @@
   justify-content: space-between;
   margin: 0 auto;
   width: 70%;
-  margin: 0 15%;
+  margin: 0 auto;
+}
+
+@media (max-width: 1366px) {
+  .catalog {
+    width: 80%;
+  }
+}
+
+@media (min-width: 768px) {
+  .catalog {
+    width: 90%;
+  }
+}
+@media (max-width: 768px) {
+  .catalog {
+    width: 100%;
+  }
 }

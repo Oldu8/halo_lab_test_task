@@ -46,7 +46,7 @@
 }
 
 .error__input::before {
-  background-image: url(./Group\ 15.svg);
+  background-image: url(./img/cancel-btn.svg);
   width: 24px;
   height: 24px;
   content: "";
@@ -54,4 +54,12 @@
   bottom: 30px;
   right: -20px;
   pointer-events: none;
+}
+
+.valid {
+  border: 1px solid #4bcfa0;
+}
+
+.unvalid {
+  border: 1px solid #e43f3f;
 }

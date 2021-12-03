@@ -51,7 +51,10 @@ export default class App extends Component {
           chosenItem={itemForModal}
           closeModal={closeModalBuyWindow}
         />
-        <BuyCheapest products={products} />
+        <BuyCheapest
+          products={products}
+          createModalBuyWindow={(id) => createModalBuyWindow(id)}
+        />
         <Footer />
       </section>
     );

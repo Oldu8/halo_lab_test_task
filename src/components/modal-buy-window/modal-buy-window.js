@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "./modal-buy-window.css";
 import InputForm from "../input-form";
-import OrderButton from "../order-button";
 
 const ModalBuyWindow = (props) => {
   const { isActive, chosenItem, closeModal } = props;
   const { name, category, price } = { ...chosenItem };
-
+  if (!isActive) return null;
   return (
-    <section
-      className={isActive ? "modal__wrapper active" : "modal__wrapper"}
-      onClick={closeModal}
-    >
+    <section className="modal__wrapper active" onClick={closeModal}>
       <div
-        className={isActive ? "modal__window active" : "modal__window"}
+        className="modal__window active"
         onClick={(e) => e.stopPropagation()}
       >
         {" "}

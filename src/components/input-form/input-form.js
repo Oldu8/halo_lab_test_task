@@ -79,10 +79,13 @@ const InputForm = (props) => {
       setError([]);
       setFormData(intialFormData);
       setTYActive(true);
-      console.log(
-        `You bought ${name} from ${category} 
-        by ${price}. Ty ${formData.userName} we will call you by your number: ${formData.userPhone}`
-      );
+      const data = {
+        name: formData.userName,
+        phone: formData.userPhone,
+        product: name,
+      };
+      console.log(`You bought ${name} from ${category} 
+        by ${price}. Ty ${formData.userName} we will call you by your number: ${formData.userPhone}`);
       closeModalWindow();
     }
   };
@@ -112,7 +115,13 @@ const InputForm = (props) => {
             value={formData.userName}
             onBlur={handleBlur}
             type="text"
-            className="name__user inputs"
+            className={
+              !errors.length && !formData.userName.length
+                ? "name__user inputs"
+                : !errors.length && formData.userName.length
+                ? "name__user inputs valid"
+                : "name__user inputs unvalid"
+            }
             placeholder="Name"
             name="userName"
             onFocus={onFocus}
@@ -132,7 +141,13 @@ const InputForm = (props) => {
             onBlur={handleBlur}
             value={formData.userPhone}
             type="tel"
-            className="phone__user inputs"
+            className={
+              !errors.length && !formData.userPhone.length
+                ? "phone__user inputs"
+                : !errors.length && formData.userPhone.length
+                ? "phone__user inputs valid"
+                : "phone__user inputs unvalid"
+            }
             placeholder="Number"
             name="userPhone"
             onFocus={onFocus}
