@@ -105,6 +105,7 @@ const InputForm = (props) => {
   };
 
   /// main return
+  // Не успел вынести инпуты в отдельный компонент, было бы больше времени вынес и настроил через пропсы передачу всех функций.
 
   return (
     <section>
@@ -168,6 +169,8 @@ const InputForm = (props) => {
       <TYPage isActive={isActiveTYPage} setActive={setTYActive} />
     </section>
   );
+
+  // не успел вынести компонент TYPage, который по факту successful order нужно назвать, и поставить на него таймер, чтобы пропадал через 10с
 };
 
 export default InputForm;
