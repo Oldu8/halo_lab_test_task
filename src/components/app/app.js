@@ -4,6 +4,7 @@ import "./app.css";
 import Header from "../header";
 import ItemList from "../item-list";
 import ModalBuyWindow from "../modal-buy-window";
+import SuccessfulWindow from "../modal-successful-window";
 import BuyCheapest from "../buy-cheapest";
 import Footer from "../footer";
 
@@ -12,6 +13,7 @@ export default class App extends Component {
     products: [],
     modalBuyWindow: false,
     itemForModal: {},
+    successfulWindow: false,
   };
 
   getData = new GetData();
@@ -27,9 +29,28 @@ export default class App extends Component {
     });
   };
 
+  closeSuccessfulWindow = () => {
+    this.setState({
+      successfulWindow: false,
+    });
+  };
+
   render() {
-    const { products, modalBuyWindow, itemForModal } = this.state;
+    const { products, modalBuyWindow, itemForModal, successfulWindow } =
+      this.state;
     const closeModalBuyWindow = this.closeModalBuyWindow;
+    const closeSuccessfulWindow = this.closeSuccessfulWindow;
+
+    const createSuccessfulWindow = () => {
+      this.setState({
+        successfulWindow: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          successfulWindow: false,
+        });
+      }, 3000);
+    };
 
     const createModalBuyWindow = (id) => {
       const chosenItem = products.find((item) => item.name === id);
@@ -50,6 +71,12 @@ export default class App extends Component {
           isActive={modalBuyWindow}
           chosenItem={itemForModal}
           closeModal={closeModalBuyWindow}
+          createSuccessfulWindow={createSuccessfulWindow}
+        />
+        <SuccessfulWindow
+          chosenItem={itemForModal}
+          isActive={successfulWindow}
+          closeSuccessful={closeSuccessfulWindow}
         />
         <BuyCheapest
           products={products}

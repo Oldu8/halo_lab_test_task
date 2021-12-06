@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./input-form.css";
-import TYPage from "../modal-ty-window";
 import OrderButton from "../order-button/";
 
 const intialFormData = {
@@ -30,20 +29,15 @@ const checkValid = {
 
 const checkLength = {
   userName: (value) => {
-    console.log(
-      !!("CheckLength name: " + value.length >= 2 && value.length < 11)
-    );
     return !!(value.length >= 2 && value.length < 11);
   },
   userPhone: (value) => {
-    console.log("CheckLength phone: " + value.length === 12);
     return value.length === 12;
   },
 };
 
 const InputForm = (props) => {
-  const [isActiveTYPage, setTYActive] = useState(false);
-  const { chosenItem, closeModalWindow } = props;
+  const { chosenItem, closeModalWindow, createSuccessfulWindow } = props;
   const { name, category, price } = { ...chosenItem };
 
   /// state for validate form
@@ -103,7 +97,7 @@ const InputForm = (props) => {
     if (!errors.length) {
       setError([]);
       setFormData(intialFormData);
-      setTYActive(true);
+      createSuccessfulWindow();
       const data = {
         name: formData.userName,
         phone: formData.userPhone,
@@ -121,7 +115,8 @@ const InputForm = (props) => {
         .filter((el) => el !== errorName)
         .filter((el) => el !== `${errorName}Empty`)
         .filter((el) => el !== `${errorName}Short`);
-      // не знаю, почему не сработал фильтр, который был .filter((el) => el !== errorName ||  el !== `${errorName}Empty`) поэтому разбил на 2
+      // не знаю, почему не сработал фильтр, который был:
+      // .filter((el) => el !== errorName ||  el !== `${errorName}Empty`) ||  el !== `${errorName}Short`) поэтому разбил на 3
     });
   };
 
@@ -212,11 +207,8 @@ const InputForm = (props) => {
           <OrderButton />
         </form>
       </div>
-      <TYPage isActive={isActiveTYPage} setActive={setTYActive} />
     </section>
   );
-
-  // не успел вынести компонент TYPage, который по факту successful order нужно назвать, и поставить на него таймер, чтобы пропадал через 10с
 };
 
 export default InputForm;
