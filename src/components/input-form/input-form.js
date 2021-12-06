@@ -11,18 +11,33 @@ const intialFormData = {
 const errorMessage = {
   userName: "Only letters allowed",
   userNameEmpty: "This field is required",
+  userNameShort: "Should contain 2-11 letters",
+  userPhone: "Only numbers allowed",
   userPhoneEmpty: "This field is required",
-  userPhone: "Should contain 12 characters",
+  userPhoneShort: "Should contain 12 characters",
 };
 
 const checkValid = {
   userName: (value) => {
     const regex = /[A-Za-z]+$/;
-    return !!(value.length >= 2 && value.length < 11) && regex.test(value);
+    return regex.test(value);
   },
   userPhone: (value) => {
-    const regex = /^[0-9]+$/;
-    return value.length === 12 && regex.test(value);
+    const regexp = /^[0-9]+$/;
+    return regexp.test(value);
+  },
+};
+
+const checkLength = {
+  userName: (value) => {
+    console.log(
+      !!("CheckLength name: " + value.length >= 2 && value.length < 11)
+    );
+    return !!(value.length >= 2 && value.length < 11);
+  },
+  userPhone: (value) => {
+    console.log("CheckLength phone: " + value.length === 12);
+    return value.length === 12;
   },
 };
 
@@ -51,6 +66,7 @@ const InputForm = (props) => {
     const { name, value } = event.target;
     const isEmpty = !!value.length;
     const isValid = checkValid[name](value);
+    const isShort = checkLength[name](value);
 
     if (!isEmpty) {
       setError((arr) => {
@@ -60,11 +76,20 @@ const InputForm = (props) => {
       setError((arr) => {
         return [...arr, name];
       });
+    } else if (!isShort) {
+      setError((arr) => {
+        return [...arr, `${name}Short`];
+      });
     }
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (!formData.userName && !formData.userPhone) {
+      return setError((ers) => {
+        return [...ers, "userNameEmpty", "userPhoneEmpty"];
+      });
+    }
     if (!formData.userName) {
       return setError((ers) => {
         return [...ers, "userNameEmpty"];
@@ -94,7 +119,8 @@ const InputForm = (props) => {
     setError((ers) => {
       return ers
         .filter((el) => el !== errorName)
-        .filter((el) => el !== `${errorName}Empty`);
+        .filter((el) => el !== `${errorName}Empty`)
+        .filter((el) => el !== `${errorName}Short`);
       // не знаю, почему не сработал фильтр, который был .filter((el) => el !== errorName ||  el !== `${errorName}Empty`) поэтому разбил на 2
     });
   };
@@ -119,9 +145,12 @@ const InputForm = (props) => {
             className={
               !errors.includes("userName") &&
               !errors.includes("userNameEmpty") &&
+              !errors.includes("userNameShort") &&
               !formData.userName.length
                 ? "name__user inputs"
-                : !errors.includes("userName") && formData.userName.length
+                : !errors.includes("userName") &&
+                  !errors.includes("userNameShort") &&
+                  formData.userName.length
                 ? "name__user inputs valid"
                 : "name__user inputs unvalid"
             }
@@ -138,6 +167,11 @@ const InputForm = (props) => {
               <div className="error__input name__error">
                 {errorMessage["userNameEmpty"]}
               </div>
+            )) ||
+            (errors.includes("userNameShort") && (
+              <div className="error__input name__error">
+                {errorMessage["userNameShort"]}
+              </div>
             ))}
           <input
             onChange={handleChange}
@@ -147,9 +181,12 @@ const InputForm = (props) => {
             className={
               !errors.includes("userPhone") &&
               !errors.includes("userPhoneEmpty") &&
+              !errors.includes("userPhoneShort") &&
               !formData.userPhone.length
                 ? "phone__user inputs"
-                : !errors.includes("userPhone") && formData.userPhone.length
+                : !errors.includes("userPhone") &&
+                  !errors.includes("userPhoneShort") &&
+                  formData.userPhone.length
                 ? "phone__user inputs valid"
                 : "phone__user inputs unvalid"
             }
@@ -165,6 +202,11 @@ const InputForm = (props) => {
             (errors.includes("userPhoneEmpty") && (
               <div className="error__input number__error">
                 {errorMessage["userPhoneEmpty"]}
+              </div>
+            )) ||
+            (errors.includes("userPhoneShort") && (
+              <div className="error__input number__error">
+                {errorMessage["userPhoneShort"]}
               </div>
             ))}
           <OrderButton />
