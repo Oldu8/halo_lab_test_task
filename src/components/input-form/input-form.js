@@ -117,9 +117,11 @@ const InputForm = (props) => {
             onBlur={handleBlur}
             type="text"
             className={
-              !errors.length && !formData.userName.length
+              !errors.includes("userName") &&
+              !errors.includes("userNameEmpty") &&
+              !formData.userName.length
                 ? "name__user inputs"
-                : !errors.length && formData.userName.length
+                : !errors.includes("userName") && formData.userName.length
                 ? "name__user inputs valid"
                 : "name__user inputs unvalid"
             }
@@ -143,9 +145,11 @@ const InputForm = (props) => {
             value={formData.userPhone}
             type="tel"
             className={
-              !errors.length && !formData.userPhone.length
+              !errors.includes("userPhone") &&
+              !errors.includes("userPhoneEmpty") &&
+              !formData.userPhone.length
                 ? "phone__user inputs"
-                : !errors.length && formData.userPhone.length
+                : !errors.includes("userPhone") && formData.userPhone.length
                 ? "phone__user inputs valid"
                 : "phone__user inputs unvalid"
             }
