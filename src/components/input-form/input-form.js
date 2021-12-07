@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./input-form.css";
 import OrderButton from "../order-button/";
+import TextField from "../text-field";
 
 const intialFormData = {
   userName: "",
@@ -79,6 +80,7 @@ const InputForm = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
     if (!formData.userName && !formData.userPhone) {
       return setError((ers) => {
         return [...ers, "userNameEmpty", "userPhoneEmpty"];
@@ -98,11 +100,6 @@ const InputForm = (props) => {
       setError([]);
       setFormData(intialFormData);
       createSuccessfulWindow();
-      const data = {
-        name: formData.userName,
-        phone: formData.userPhone,
-        product: name,
-      };
       console.log(`You bought ${name} from ${category} 
         by ${price}. Ty ${formData.userName} we will call you by your number: ${formData.userPhone}`);
       closeModalWindow();
@@ -125,85 +122,50 @@ const InputForm = (props) => {
     removeChosenError(name);
   };
 
-  /// main return
-  // Не успел вынести инпуты в отдельный компонент, было бы больше времени вынес и настроил через пропсы передачу всех функций.
-
   return (
     <section>
       <div className="user__block">
         <form className="input__form" onSubmit={onSubmit}>
-          <input
+          <TextField
             onChange={handleChange}
             value={formData.userName}
             onBlur={handleBlur}
-            type="text"
-            className={
-              !errors.includes("userName") &&
-              !errors.includes("userNameEmpty") &&
-              !errors.includes("userNameShort") &&
-              !formData.userName.length
-                ? "name__user inputs"
-                : !errors.includes("userName") &&
-                  !errors.includes("userNameShort") &&
-                  formData.userName.length
-                ? "name__user inputs valid"
-                : "name__user inputs unvalid"
-            }
-            placeholder="Name"
             name="userName"
+            placeholder="Name"
             onFocus={onFocus}
-          ></input>
-          {(errors.includes("userName") && (
-            <div className="error__input name__error">
-              {errorMessage["userName"]}
-            </div>
-          )) ||
-            (errors.includes("userNameEmpty") && (
-              <div className="error__input name__error">
-                {errorMessage["userNameEmpty"]}
-              </div>
-            )) ||
-            (errors.includes("userNameShort") && (
-              <div className="error__input name__error">
-                {errorMessage["userNameShort"]}
-              </div>
-            ))}
-          <input
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={formData.userPhone}
-            type="tel"
-            className={
-              !errors.includes("userPhone") &&
-              !errors.includes("userPhoneEmpty") &&
-              !errors.includes("userPhoneShort") &&
-              !formData.userPhone.length
-                ? "phone__user inputs"
-                : !errors.includes("userPhone") &&
-                  !errors.includes("userPhoneShort") &&
-                  formData.userPhone.length
-                ? "phone__user inputs valid"
-                : "phone__user inputs unvalid"
+            isError={
+              errors.includes("userName") ||
+              errors.includes("userNameEmpty") ||
+              errors.includes("userNameShort")
             }
-            placeholder="Number"
+            textError={
+              (errors.includes("userName") && errorMessage["userName"]) ||
+              (errors.includes("userNameEmpty") &&
+                errorMessage["userNameEmpty"]) ||
+              (errors.includes("userNameShort") &&
+                errorMessage["userNameShort"])
+            }
+          />
+          <TextField
+            onChange={handleChange}
+            value={formData.userPhone}
+            onBlur={handleBlur}
             name="userPhone"
+            placeholder="Phone"
             onFocus={onFocus}
-          ></input>
-          {(errors.includes("userPhone") && (
-            <div className="error__input number__error">
-              {errorMessage["userPhone"]}
-            </div>
-          )) ||
-            (errors.includes("userPhoneEmpty") && (
-              <div className="error__input number__error">
-                {errorMessage["userPhoneEmpty"]}
-              </div>
-            )) ||
-            (errors.includes("userPhoneShort") && (
-              <div className="error__input number__error">
-                {errorMessage["userPhoneShort"]}
-              </div>
-            ))}
+            isError={
+              errors.includes("userPhone") ||
+              errors.includes("userPhoneEmpty") ||
+              errors.includes("userPhoneShort")
+            }
+            textError={
+              (errors.includes("userPhone") && errorMessage["userPhone"]) ||
+              (errors.includes("userPhoneEmpty") &&
+                errorMessage["userPhoneEmpty"]) ||
+              (errors.includes("userPhoneShort") &&
+                errorMessage["userPhoneShort"])
+            }
+          />
           <OrderButton />
         </form>
       </div>

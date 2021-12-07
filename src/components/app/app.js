@@ -74,7 +74,6 @@ export default class App extends Component {
           createSuccessfulWindow={createSuccessfulWindow}
         />
         <SuccessfulWindow
-          chosenItem={itemForModal}
           isActive={successfulWindow}
           closeSuccessful={closeSuccessfulWindow}
         />

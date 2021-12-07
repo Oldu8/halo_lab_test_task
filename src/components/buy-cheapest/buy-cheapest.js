@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./buy-cheapest.css";
 
 const BuyCheapest = ({ products, createModalBuyWindow }) => {
-  const [cheapestProduct, setProduct] = useState({});
-
   const buyCheapestClicked = () => {
-    const cheapestProduct = [...products].sort((a, b) => a.price - b.price)[0];
-    setProduct(cheapestProduct);
-    createModalBuyWindow(cheapestProduct.name);
+    const newCheapestProduct = [...products].sort(
+      (a, b) => a.price - b.price
+    )[0];
+    createModalBuyWindow(newCheapestProduct.name);
   };
 
   return (

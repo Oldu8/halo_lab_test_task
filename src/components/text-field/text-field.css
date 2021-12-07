@@ -1,0 +1,43 @@
+.error__input {
+  letter-spacing: -0.02em;
+  position: absolute;
+  color: #e43f3f;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  width: 256px;
+  height: 16px;
+  display: block;
+}
+
+.name__error {
+  top: 65px;
+}
+
+.number__error {
+  top: 142px;
+}
+
+.error__input::before {
+  background-image: url(./img/cancel-btn.svg);
+  width: 24px;
+  height: 24px;
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  right: -20px;
+  pointer-events: none;
+}
+
+.valid {
+  border: 1px solid #4bcfa0;
+}
+
+.unvalid {
+  border: 1px solid #e43f3f;
+}
+
+.label__field {
+  position: relative;
+}
